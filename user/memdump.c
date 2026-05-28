@@ -60,6 +60,47 @@ main(int argc, char *argv[])
 void
 memdump(char *fmt, char *data)
 {
-  // Your code here.
-
+  while (*fmt != '\0') {
+    switch(*fmt) {
+      case 'i': {
+        printf("%d\n", *(int*)data);
+        data += 4;
+        break;
+      }
+      case 'p': {
+        long long val = *(long long*)data;
+        printf("%llx\n", val);
+        data += 8;
+        break;
+      }
+      case 'h': {
+        printf("%d\n", *(short*)data);
+        data += 2;
+        break;
+      }
+      case 'c':{
+        printf("%c\n", *data);
+        data += 1;
+        break;
+      }
+      case 's':{
+        char* ch = *(char**)data;
+        printf("%s\n", ch);
+        data += 8;
+        break;
+      }
+      case 'S':{
+        int n = strlen(data);
+        for (int i= 0; i < n; ++i) {
+          printf("%c", *(data + i));
+        }
+        printf("\n");
+        break;
+      }
+      default:
+        break;
+    }
+    ++fmt;
+  }
+  return;
 }
